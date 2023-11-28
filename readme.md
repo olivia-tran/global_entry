@@ -4,7 +4,7 @@ Scheduling an interview for your Global Entry application is hard. Some enrollme
 
 This script uses the new (2017-10) but undocumented API at `https://ttp.cbp.dhs.gov/schedulerapi/slots/asLocations` to inform you of Global Entry interview openings.
 
-*There is [another project](https://github.com/oliversong/goes-notifier) on GitHub that used to accomplish the same thing, but the new DHS web site broke it. I found it only after I got this thing working, so I thought I'd post this anyway for whomever may benefit from it.*
+_There is [another project](https://github.com/oliversong/goes-notifier) on GitHub that used to accomplish the same thing, but the new DHS web site broke it. I found it only after I got this thing working, so I thought I'd post this anyway for whomever may benefit from it._
 
 ## Setup
 
@@ -18,4 +18,6 @@ This script uses the new (2017-10) but undocumented API at `https://ttp.cbp.dhs.
 - add this script to your crontab (see [virtualenv notes](https://stackoverflow.com/questions/3287038/cron-and-virtualenv)). Direct the output to a log file to keep track of it
 - wait for it
 
-*A [Two Hour Project](http://ma.rtijn.org/two-hour-projects/)*
+_A [Two Hour Project](http://ma.rtijn.org/two-hour-projects/)_
+
+- Thank you Martijn for writing this, testing this code out to find appointments for my global entry application https://github.com/mvexel
