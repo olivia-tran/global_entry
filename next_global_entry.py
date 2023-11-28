@@ -1,11 +1,12 @@
 #!/usr/bin/env python
 """Check for Global Entry interview openings in your city."""
-
-import sys
-import datetime
-import requests
 from twilio.rest import Client
-import config
+import requests
+import datetime
+import os
+import sys
+from dotenv import load_dotenv
+load_dotenv()
 
 
 def log(text):
@@ -17,31 +18,40 @@ def log(text):
 
 def send_start_message():
     """Send a message that the script has started."""
-    client = Client(config.twilio_account, config.twilio_token)
+    client = Client(
+        os.environ.get('TWILIO_ACCOUNT'),
+        os.environ.get('TWILIO_TOKEN')
+    )
     message = client.messages.create(
-        to=config.to_number,
-        from_=config.twilio_from_number,
-        body="Script has started")
+        to=os.environ.get('TO_NUMBER'),
+        from_=os.environ.get('TWILIO_FROM_NUMBER'),
+        body="Script has started"
+    )
     log("Start message sent")
 
 
 if __name__ == '__main__':
-    # calculate date
+    print("script started")
     send_start_message()  # Send a message that the script has started
     now = datetime.datetime.now()
-    delta = datetime.timedelta(weeks=config.look_ahead_weeks)
+    delta = datetime.timedelta(weeks=int(os.environ.get('LOOK_AHEAD_WEEKS')))
     future = now + delta
-    request_url = config.global_entry_query_url.format(
+    request_url = os.environ.get('GLOBAL_ENTRY_QUERY_URL').format(
         timestamp=future.strftime("%Y-%m-%d"))
     result = requests.get(request_url).json()
     cities = [o.get('city').lower() for o in result]
-    if config.search_string.lower() in cities:
-        client = Client(config.twilio_account, config.twilio_token)
+
+    search_string = os.environ.get('SEARCH_STRING').lower()
+    if search_string in cities:
+        client = Client(
+            os.environ.get('TWILIO_ACCOUNT'),
+            os.environ.get('TWILIO_TOKEN')
+        )
         message = client.messages.create(
-            to=config.to_number,
-            from_=config.twilio_from_number,
-            body="Global Entry interview opportunity in {} \
-opened up just now!".format(config.search_string))
+            to=os.environ.get('TO_NUMBER'),
+            from_=os.environ.get('TWILIO_FROM_NUMBER'),
+            body=f"Global Entry interview opportunity in {search_string} \
+opened up just now!")
         log("text message sent")
         sys.exit(0)
     log("no news")
