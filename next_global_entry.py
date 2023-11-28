@@ -1,27 +1,23 @@
 #!/usr/bin/env python
 """Check for Global Entry interview openings in your city."""
 from twilio.rest import Client
-import os
 import requests
 import datetime
-import sys
+import os
+import time
 from dotenv import load_dotenv
 load_dotenv()
 
 
 def log(text):
     """Write a one-line log message."""
-    print("{dt}\t{msg}".format(
-        dt=datetime.datetime.now(),
-        msg=text))
+    print("{dt}\t{msg}".format(dt=datetime.datetime.now(), msg=text))
 
 
 def send_start_message():
     """Send a message that the script has started."""
-    client = Client(
-        os.environ.get('TWILIO_ACCOUNT'),
-        os.environ.get('TWILIO_TOKEN')
-    )
+    client = Client(os.environ.get('TWILIO_ACCOUNT'),
+                    os.environ.get('TWILIO_TOKEN'))
     message = client.messages.create(
         to=os.environ.get('TO_NUMBER'),
         from_=os.environ.get('TWILIO_FROM_NUMBER'),
@@ -30,9 +26,8 @@ def send_start_message():
     log("Start message sent")
 
 
-if __name__ == '__main__':
-    print("script started")
-    send_start_message()  # Send a message that the script has started
+def check_openings():
+    """Check for interview openings."""
     now = datetime.datetime.now()
     delta = datetime.timedelta(weeks=int(os.environ.get('LOOK_AHEAD_WEEKS')))
     future = now + delta
@@ -43,16 +38,23 @@ if __name__ == '__main__':
 
     search_string = os.environ.get('SEARCH_STRING').lower()
     if search_string in cities:
-        client = Client(
-            os.environ.get('TWILIO_ACCOUNT'),
-            os.environ.get('TWILIO_TOKEN')
-        )
+        client = Client(os.environ.get('TWILIO_ACCOUNT'),
+                        os.environ.get('TWILIO_TOKEN'))
         message = client.messages.create(
             to=os.environ.get('TO_NUMBER'),
             from_=os.environ.get('TWILIO_FROM_NUMBER'),
-            body=f"Global Entry interview opportunity in {search_string} \
-opened up just now!")
+            body=f"Global Entry interview opportunity in {search_string} opened up just now!")
         log("text message sent")
-        sys.exit(0)
-    log("no news")
-    sys.exit(1)
+    else:
+        log("no news")
+
+
+if __name__ == '__main__':
+    while True:  # Continuous execution
+        log("script started")
+        send_start_message()
+        check_openings()
+
+        # Sleep for a certain amount of time before next check
+        sleep_duration = 3600  # 1 hour in seconds, adjust as needed
+        time.sleep(sleep_duration)
