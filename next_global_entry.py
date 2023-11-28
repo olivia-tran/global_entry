@@ -1,9 +1,9 @@
 #!/usr/bin/env python
 """Check for Global Entry interview openings in your city."""
 from twilio.rest import Client
+import os
 import requests
 import datetime
-import os
 import sys
 from dotenv import load_dotenv
 load_dotenv()
