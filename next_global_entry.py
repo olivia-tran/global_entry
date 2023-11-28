@@ -15,8 +15,19 @@ def log(text):
         msg=text))
 
 
+def send_start_message():
+    """Send a message that the script has started."""
+    client = Client(config.twilio_account, config.twilio_token)
+    message = client.messages.create(
+        to=config.to_number,
+        from_=config.twilio_from_number,
+        body="Script has started")
+    log("Start message sent")
+
+
 if __name__ == '__main__':
     # calculate date
+    send_start_message()  # Send a message that the script has started
     now = datetime.datetime.now()
     delta = datetime.timedelta(weeks=config.look_ahead_weeks)
     future = now + delta
