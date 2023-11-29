@@ -28,6 +28,7 @@ def send_start_message():
 
 def check_openings():
     """Check for interview openings."""
+    log("check_openings method started")
     now = datetime.datetime.now()
     delta = datetime.timedelta(weeks=int(os.environ.get('LOOK_AHEAD_WEEKS')))
     future = now + delta
