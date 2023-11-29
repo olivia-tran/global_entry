@@ -38,6 +38,11 @@ def check_openings():
     cities = [o.get('city').lower() for o in result]
 
     search_string = os.environ.get('SEARCH_STRING').lower()
+    log("search_string====", search_string)
+    log("cities====", cities)
+    log("delta====", delta)
+    log("request_url====", request_url)
+    log("result=====", result)
     if search_string in cities:
         client = Client(os.environ.get('TWILIO_ACCOUNT'),
                         os.environ.get('TWILIO_TOKEN'))
