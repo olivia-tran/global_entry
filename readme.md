@@ -22,4 +22,5 @@ _A [Two Hour Project](http://ma.rtijn.org/two-hour-projects/)_
 
 - Thank you Martijn for starting this, I revised and added a few things for my global entry application https://github.com/mvexel
 - ref: https://www.cbp.gov/travel/trusted-traveler-programs/global-entry/enrollment-arrival
-- https://ttp.cbp.dhs.gov/schedulerui/ 
+- https://ttp.cbp.dhs.gov/schedulerui/
+- I updated the endpoint to the city I want to search for directly to simplify the code: https://ttp.cbp.dhs.gov/schedulerapi/slots?orderBy=soonest&limit=1&locationId=5446&minimum=1 and also added logs to debug
