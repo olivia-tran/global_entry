@@ -20,4 +20,6 @@ _There is [another project](https://github.com/oliversong/goes-notifier) on GitH
 
 _A [Two Hour Project](http://ma.rtijn.org/two-hour-projects/)_
 
-- Thank you Martijn for writing this, testing this code out to find appointments for my global entry application https://github.com/mvexel
+- Thank you Martijn for starting this, I revised and added a few things for my global entry application https://github.com/mvexel
+- ref: https://www.cbp.gov/travel/trusted-traveler-programs/global-entry/enrollment-arrival
+- https://ttp.cbp.dhs.gov/schedulerui/ 
